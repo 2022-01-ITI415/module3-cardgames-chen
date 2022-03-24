@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Card : MonoBehaviour {
 
+
+	[Header("Set Dynamically")]
 	public string    suit;
 	public int       rank;
 	public Color     color = Color.black;
@@ -28,8 +30,9 @@ public class Decorator{
 public class CardDefinition{
 	public string	face;	//sprite to use for face cart
 	public int		rank;	// value from 1-13 (Ace-King)
+	
 	public List<Decorator>	
-					pips = new List<Decorator>();  // Pips Used
+	pips = new List<Decorator>();  // Pips Used
 }
 
 	void Start() {
@@ -40,25 +43,31 @@ public class CardDefinition{
 			spriteRenderers = GetComponentsInChildren<spriteRenderers>();
 		}
 	}
-	public void SetSortingLayerName(string tSLN) {
+	public void SetSortLayerName(string tSLN) {
+		PopulateSpriteRenderers();
+		foreach (SpriteRenderer tSR in spriteRenderers) {
+			tSR.sortingLayerName = tSLN;
+		}
+	}
+	
+	public void SetSortOrder (int sOrd) {
 		PopulatedSpriteRenderers();
 		foreach (SpriteRenderer tSR in spriteRenderers) {
 			if (tSR.gameObject == this.gameObject) {
-				tSR.sortingOrder = s0rd;
+				tSR.sortingOrder = sOrd;
 				continue;
 			}
-		switch (tSR.gameObject.name) {
-			case "back": // if the name is "back"
-			tSR.sortingOrder = SortedList+2;
+		switch (tSR.gameObject.name){
+			case "back":
+			tSR.sortingOrder = sOrd+2;
 			break;
 			case "face":
-			default: //or if it's anything else
+			default:
 			tSR.sortingOrder = sOrd+1;
 			break;
+			}
 		}
-	  }
 	}
-
 	public bool faceUp {
 		get {
 			return (!back.activeSelf);
@@ -67,5 +76,8 @@ public class CardDefinition{
 		set {
 			back.SetActive(!value);
 		}
-	} 
+	}
+	virtual public void OnMouseUpAsButton() {
+		print (name);
+	}
 }
