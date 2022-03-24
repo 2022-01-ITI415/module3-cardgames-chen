@@ -171,7 +171,29 @@ public class Prospector : MonoBehaviour {
 		}
 		CheckForGameOver();
 	}
-	
+	void CheckForGameOver(){
+		if (tableau.Count==0){
+			CheckForGameOver(true);
+			return;
+		}
+	if (drawPile.Counte>0){
+		return;
+	}
+	foreach (CardProspector cd in tableau){
+		if (AdjacentRank(cd, target)){
+			return;
+		}
+	}
+	GameOver (false);
+	}
+	void GameOver(bool won) {
+		if (won) {
+			print ("Game Over. You Won!");
+		}else{
+			print ("Game Over. You Lose!");
+		}
+		ScenceManager.LoadScene("__Prospector_Scene_0");
+		}
 	public bool AdjacentRank(CardProspector c0, CardProspector c1){
 		if (!c0.faceUp||!c1.faceUp) return(false);
 		if (Mathf.Abs(c0.rank - c1.rank) ==1) { 
@@ -182,5 +204,7 @@ public class Prospector : MonoBehaviour {
 		return(false);
 	}
 }
+
+
 
 
