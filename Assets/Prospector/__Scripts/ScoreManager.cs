@@ -59,7 +59,7 @@ public class ScoreManager : MonoBehaviour {
             print ("You won this round! Round score:" + score);
             break;
         case eScoreEvent.gameLoss:
-            if (HIGH_SCORE <= score); {
+            if (HIGH_SCORE <= score) {
             print ("You got the high score! High score:" +score);
             HIGH_SCORE = score;
             PlayerPrefs.SetInt("ProspectorHighScore", score);
