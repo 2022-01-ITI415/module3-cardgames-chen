@@ -38,8 +38,7 @@ public class Prospector : MonoBehaviour {
 		LayoutGame();
 	}
 
-	List<CardProspector>
-	ConvertListCardsToListCardProspectors(List<Card>lCD) {
+	List<CardProspector>ConvertListCardsToListCardProspectors(List<Card>lCD) {
 		List<CardProspector> lCP = new List<CardProspector>();
 		CardProspector tCP;
 		foreach (Card tCD in lCD) {
@@ -59,8 +58,7 @@ public class Prospector : MonoBehaviour {
 			GameObject tGO = new GameObject("_LayoutAnchor");
 			layoutAnchor = tGO.transform;
 			layoutAnchor.transform.position = layoutCenter;
-		}
-	CardProspector cp;
+			CardProspector cp;
 	foreach (SlotDef tSD in layout.slotDefs) {
 		cp = Draw();
 		cp.faceUp = tSD.faceUp;
@@ -75,6 +73,70 @@ public class Prospector : MonoBehaviour {
 			cp.SetSortingLayerName(tSD.layerName);
 		tableau.Add(cp);
 		}
+		MoveToTarget(Draw ());
+		UpdateDrawPile();
 	}
 
+
+		}
+	void MoveToDiscard(CardProspector cd) {
+		cd.state = eCardState.discard;
+		discardPile.Add(cd);
+		cd.transform.parent = layoutAnchor;
+
+		cd.transform = true;
+		cd.SetSortingLayerName(layout.discardPile.layerName);
+		cd.SetSortOrder(-100+discardPile.Count);
+	}
+	void MoveToTarget(CardProspector cd) {
+		if (target != null) MoveToDiscard(target);
+		target = cd;
+		cd.states = eCardState.target;
+		cd.transform.parent = layoutAnchor;
+		cd.transform.localPosition = new Vector3(
+		layout.multiplier.x * layout.discardPile.x,
+		layout.multiplier.x * layout.discardPile.y,
+		-layout.discardPile.layerID);
+		cd.faceUp = true;
+		cd.SetSortingLayerName(layout.discardPile.layerName);
+		cd.SetSortOrder(0);
+	}
+	void UpdateDrawPile(){
+		CardProspector cd;
+		for (int i=0; i<drawPile.Count;i++) {
+			cd = drawPile[i];
+			cd.transform.parent = layoutAnchor;
+
+		Vector2 dpStagger = layout.drawPile.stagger;
+		cd.transform.localPosition = new Vector3(
+			layout.multiplier.x* (layout.drawPile.x + i*dpStagger.x),
+			layout.multiplier.y* (layout.drawPile.y + i*dpStagger.y),
+			-layout.drawPile.layerID+0.1f*i);
+
+			cd.faceUp = false;
+			cd.state = eCardState.drawpile;
+			cd.SetSortingLayerName(layout.drawPile.layerName);
+			cd.SetSortOrder(-10*i);
+		}
+	}
+	void CardClicked(CardProspector cd) {
+		switch (cd.state) {
+		case eCardState.target:
+		break;	
+		case eCardState.drawpile:
+		MoveToDiscard(target);
+		MoveToTarget(Draw());
+		UpdateDrawPile();
+		break;
+		case eCardState.drawpile:
+		MoveToDiscard(target);
+		MoveToTarget(Draw());
+		UpdateDrawPile();
+		break;
+		case eCardState.tableu:
+		break;
+
+		}
+	}
 }
+
