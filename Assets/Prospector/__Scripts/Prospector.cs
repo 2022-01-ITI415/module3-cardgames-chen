@@ -71,7 +71,8 @@ public class Prospector : MonoBehaviour {
 			-tSD.layerID );
 			cp.layoutID = tSD.id;
 			cp.slotDef = tSD;
-			cp.state = eCardState.tableu;
+			cp.state = eCardState.tableau;
+			cp.SetSortingLayerName(tSD.layerName);
 		tableau.Add(cp);
 		}
 	}
