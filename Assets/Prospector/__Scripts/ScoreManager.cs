@@ -63,7 +63,9 @@ public class ScoreManager : MonoBehaviour {
             print ("You got the high score! High score:" +score);
             HIGH_SCORE = score;
             PlayerPrefs.SetInt("ProspectorHighScore", score);
-        } else {
+        } 
+        else 
+        {
             print ("Your final score for the game was:"+score);
         }
         break;
@@ -76,6 +78,7 @@ public class ScoreManager : MonoBehaviour {
     static public int CHAIN { get { return S.chain;}}
     static public int SCORE { get { return S.score;}}
     static public int SCORE_RUN { get { return S.scoreRun;}}
-} 
+}
+
 
 
