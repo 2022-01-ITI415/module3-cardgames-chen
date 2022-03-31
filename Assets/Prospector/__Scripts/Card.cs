@@ -25,11 +25,11 @@ public class Card : MonoBehaviour {
 	}
 	public void PopulatedSpriteRenderers(){
 		if(spriteRenderers == null || spriteRenderers.Length == 0) {
-			spriteRenderers = GetComponentsInChildren<spriteRenderers>();
+			spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 		}
 	}
-	public void SetSortLayerName(string tSLN) {
-		PopulateSpriteRenderers();
+	public void SetSortingLayerName(string tSLN) {
+		PopulatedSpriteRenderers();
 		foreach (SpriteRenderer tSR in spriteRenderers) {
 			tSR.sortingLayerName = tSLN;
 		}
@@ -65,6 +65,7 @@ public class Card : MonoBehaviour {
 	virtual public void OnMouseUpAsButton() {
 		print (name);
 	}
+}
 	[System.Serializable]
 public class Decorator{
 	public string	type;			// For card pips, tyhpe = "pip"
@@ -79,4 +80,4 @@ public class CardDefinition{
 	public int		rank;	// value from 1-13 (Ace-King)
 	public List<Decorator>	pips = new List<Decorator>();  // Pips Used
 }
-}
+

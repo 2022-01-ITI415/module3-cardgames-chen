@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum eCardState{
     drawpile,
-    tableu,
+    tableau,
     target,
     discard
 }
@@ -18,3 +18,4 @@ public class CardProspector : Card
     public SlotDef slotDef;
 
 }
+
