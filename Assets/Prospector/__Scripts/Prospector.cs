@@ -42,7 +42,7 @@ public class Prospector : MonoBehaviour {
 			highScoreText = go.GetComponent<Text>();
 		}
 		int highScore = ScoreManager.HIGH_SCORE;
-		string hScore = "High Score:" +Utils.AddCommasToNumber(highScore);
+		string hScore = "High Score: "+Utils.AddCommasToNumber(highScore);
 		go.GetComponent<Text>().text = hScore;
 		go = GameObject.Find ("GameOver");
 		if (go != null)	 {
